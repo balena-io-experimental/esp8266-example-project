@@ -15,17 +15,17 @@ app.use(function(err, req, res, next) {
   res.status(500).send({ error: err });
 });
 
-const device = awsIot.device({
-  privateKey: new Buffer(process.env.AWS_PRIVATE_KEY, 'base64'),
-  clientCert: new Buffer(process.env.AWS_CERT, 'base64'),
-  caCert: new Buffer(process.env.AWS_ROOT_CA, 'base64'),
-  clientId: process.env.RESIN_DEVICE_UUID,
-  region: process.env.AWS_REGION
-});
+// const device = awsIot.device({
+//   privateKey: new Buffer(process.env.AWS_PRIVATE_KEY, 'base64'),
+//   clientCert: new Buffer(process.env.AWS_CERT, 'base64'),
+//   caCert: new Buffer(process.env.AWS_ROOT_CA, 'base64'),
+//   clientId: process.env.RESIN_DEVICE_UUID,
+//   region: process.env.AWS_REGION
+// });
 
-device.on('connect', () => {
-  console.log('device connected to AWS');
-});
+// device.on('connect', () => {
+//   console.log('device connected to AWS');
+// });
 
 app.post('/api/publish/:topic', (req, res, next) => {
   if (typeof req.body !== 'object') {
@@ -43,10 +43,11 @@ app.post('/api/publish/:topic', (req, res, next) => {
   );
 
   console.log(`Publishing ${JSON.stringify(data)}`);
-  device.publish(req.params.topic, JSON.stringify(data), null, err => {
-    if (err) next(err);
-    res.sendStatus(200);
-  });
+  res.sendStatus(200);
+  // device.publish(req.params.topic, JSON.stringify(data), null, err => {
+  //   if (err) next(err);
+  //   res.sendStatus(200);
+  // });
 });
 
 app.listen(PORT, () => {

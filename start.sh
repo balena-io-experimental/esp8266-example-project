@@ -7,7 +7,7 @@ if [[ -z "$AWS_CERT" && -z "$AWS_PRIVATE_KEY" && -z "$AWS_ROOT_CA" ]]; then
 	$LAMBDA
 elif [[ "$AWS_CERT" && "$AWS_PRIVATE_KEY" && "$AWS_ROOT_CA" ]]; then
 	echo "AWS certificates exist - running app"
-	npm start
+	npm start &
 fi
 
-# ./edge-node-manager
+./edge-node-manager
